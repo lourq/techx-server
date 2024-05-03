@@ -48,28 +48,23 @@ const __dirname = dirname(__filename);
 
 // //#region [Middlewares]
 app.use(express.json()); // Middleware parses incoming requests with JSON bodies.
-app.use(
-  (
-    req,
-    res,
-    next // Middleware for handling CORS.
-  ) => {
-    res.setHeader(
-      "Access-Control-Allow-Origin",
-      "https://squid-app-d6fho.ondigitalocean.app/","http://localhost:3000"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, OPTIONS, PUT, DELETE"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-    res.setHeader("Access-Control-Allow-Credentials", true);
-    next();
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "https://squid-app-d6fho.ondigitalocean.app",
+    "http://localhost:3000"
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
   }
-);
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  next();
+});
 app.use(
   (
     req,
