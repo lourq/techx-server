@@ -123,7 +123,9 @@ app.post("/SendConfirmationCodeEmail", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+  });
 // // Push new user data.
 app.post("/NewUser", async (req, res) => {
   try {
