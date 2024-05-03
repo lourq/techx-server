@@ -56,7 +56,7 @@ app.use(
   ) => {
     res.setHeader(
       "Access-Control-Allow-Origin",
-      "https://squid-app-d6fho.ondigitalocean.app/"
+      "https://squid-app-d6fho.ondigitalocean.app/","http://localhost:3000"
     );
     res.setHeader(
       "Access-Control-Allow-Methods",
