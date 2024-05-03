@@ -13,7 +13,7 @@ import multer from "multer";
 import SEND_CODE_VERIFICATION from "./Configs/config_gmail.js";
 import { UserModel } from "./Models/User.js";
 import { SessionModel } from "./Models/Session.js";
-import { IPhoneModel } from "./Models/IPhone.js";
+import { IPhoneModel } from "./Models/Iphone.js";
 import { AirPodsModel } from "./Models/AirPods.js";
 import { AppleWatchModel } from "./Models/AppleWatch.js";
 import { MacbookModel } from "./Models/Macbook.js";
