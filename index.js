@@ -81,7 +81,7 @@ app.use(
 // //#endregion
 
 const DB_URL = _techx_data_connection_string; // process.env.MONGODB_URI;
-const PORT = 80; // process.env.PORT;
+const PORT = 443; // process.env.PORT;
 
 // //#region [TECHX]
 // // + + + + + + + + + + + + + + + + + + + TECHX + + + + + + + + + + + + + + + + + + +
