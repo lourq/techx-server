@@ -23,6 +23,7 @@
   },
   "keywords": [],
   "author": "",
+  "type": "module",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
