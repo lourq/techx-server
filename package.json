@@ -1,9 +1,7 @@
 {
   "name": "test-aws",
   "version": "1.0.0",
-  "description": "",
-  "type": "module",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "server": "node server.js"
   },
