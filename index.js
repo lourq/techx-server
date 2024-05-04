@@ -50,7 +50,8 @@ const __dirname = dirname(__filename);
 app.use(express.json()); // Middleware parses incoming requests with JSON bodies.
 app.use((req, res, next) => {
   const allowedOrigins = [
-    "https://squid-app-d6fho.ondigitalocean.app"
+    "https://squid-app-d6fho.ondigitalocean.app",
+    "http://localhost:3000"
   ];
   
   const origin = req.headers.origin;
