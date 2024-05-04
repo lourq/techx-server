@@ -89,7 +89,7 @@ const PORT = 80; // process.env.PORT;
 // //=============================================================================================
 // //#region [Registration Requests]
 // // Let's check if the user exists.
-app.post("/api/CheckUserExists", async (req, res) => {
+app.post("/CheckUserExists", async (req, res) => {
   try {
     const { email } = req.body;
     const existing_user = await UserModel.findOne({ email });
@@ -103,7 +103,7 @@ app.post("/api/CheckUserExists", async (req, res) => {
 });
 
 // // We send the user a confirmation code by email.
-app.post("/api/SendConfirmationCodeEmail", async (req, res) => {
+app.post("/SendConfirmationCodeEmail", async (req, res) => {
   try {
     const { email } = req.body;
     const confirmation_сode = Math.floor(
@@ -120,7 +120,7 @@ app.post("/api/SendConfirmationCodeEmail", async (req, res) => {
 });
 
 // // Push new user data.
-app.post("/api/NewUser", async (req, res) => {
+app.post("/NewUser", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const new_user = new UserModel({
@@ -143,7 +143,7 @@ app.post("/api/NewUser", async (req, res) => {
 // //#endregion
 // //#region [Authorization Requests]
 // // Prompt to verify user password.
-app.post("/api/ProofPass", async (req, res) => {
+app.post("/ProofPass", async (req, res) => {
   try {
     const { email, password } = req.body;
     const existing_user = await UserModel.findOne({ email });
@@ -165,7 +165,7 @@ app.post("/api/ProofPass", async (req, res) => {
 // //#endregion
 // //#region [Sessions Requests]
 // // Generate and issue a token.
-app.post("/api/GenerateToken", async (req, res) => {
+app.post("/GenerateToken", async (req, res) => {
   try {
     const { email } = req.body;
     const token = jwt.sign({ user: email }, _token_secret_key, {
@@ -180,7 +180,7 @@ app.post("/api/GenerateToken", async (req, res) => {
 });
 
 // // Checking the validity of the token.
-app.post("/api/CheckToken", async (req, res) => {
+app.post("/CheckToken", async (req, res) => {
   try {
     const token = req.token;
 
@@ -195,7 +195,7 @@ app.post("/api/CheckToken", async (req, res) => {
 });
 
 // // Create a new session for the user.
-app.post("/api/CreateSession", async (req, res) => {
+app.post("/CreateSession", async (req, res) => {
   try {
     const { email } = req.body;
     const id = await UserModel.findOne({ email });
@@ -211,7 +211,7 @@ app.post("/api/CreateSession", async (req, res) => {
 });
 
 // // Getting session data.
-app.post("/api/PullOutOfSession", async (req, res) => {
+app.post("/PullOutOfSession", async (req, res) => {
   try {
     const token = req.token;
     const session = await SessionModel.findOne({ token });
@@ -238,7 +238,7 @@ app.post("/api/PullOutOfSession", async (req, res) => {
 });
 
 // // Getting session data.
-app.post("/api/RemoveFromSession", async (req, res) => {
+app.post("/RemoveFromSession", async (req, res) => {
   try {
     const token = req.token;
     const session = await SessionModel.findOne({ token });
@@ -256,7 +256,7 @@ app.post("/api/RemoveFromSession", async (req, res) => {
 // //#endregion
 // //#region [For client Requests]
 // //Search products on the site.
-app.post("/api/SearchForProducts", async (req, res) => {
+app.post("/SearchForProducts", async (req, res) => {
   try {
     const { query } = req.body;
     const iphones = await IPhoneModel.find({
@@ -348,7 +348,7 @@ app.post("/api/SearchForProducts", async (req, res) => {
 });
 
 // // Retrieving an image from the server.
-app.get("/api/GetImage/:ImageName", (req, res) => {
+app.get("/GetImage/:ImageName", (req, res) => {
   const image_name = decodeURIComponent(req.params.ImageName);
   const image_path = join(__dirname, "ProductImages", image_name);
 
@@ -360,7 +360,7 @@ app.get("/api/GetImage/:ImageName", (req, res) => {
 });
 
 // // Getting data for carusel.
-app.post("/api/GettingDataForCarusel", async (req, res) => {
+app.post("/GettingDataForCarusel", async (req, res) => {
   try {
     const iphones = await IPhoneModel.find();
 
@@ -416,7 +416,7 @@ app.post("/api/GettingDataForCarusel", async (req, res) => {
 // //#endregion
 // //#region [Products Requests]
 // // Getting Iphone data for list product.
-app.post("/api/GetDataForListProduct/Iphone", async (req, res) => {
+app.post("/GetDataForListProduct/Iphone", async (req, res) => {
   try {
     const iphones = await IPhoneModel.find();
     const formatted_data = iphones.map((phone) => {
@@ -438,7 +438,7 @@ app.post("/api/GetDataForListProduct/Iphone", async (req, res) => {
 });
 
 // // Getting AirPods data for list product.
-app.post("/api/GetDataForListProduct/AirPods", async (req, res) => {
+app.post("/GetDataForListProduct/AirPods", async (req, res) => {
   try {
     const airpods = await AirPodsModel.find();
 
@@ -460,7 +460,7 @@ app.post("/api/GetDataForListProduct/AirPods", async (req, res) => {
 });
 
 // // Getting AppleWatch data for list product.
-app.post("/api/GetDataForListProduct/AppleWatch", async (req, res) => {
+app.post("/GetDataForListProduct/AppleWatch", async (req, res) => {
   try {
     const applewatchs = await AppleWatchModel.find();
 
@@ -482,7 +482,7 @@ app.post("/api/GetDataForListProduct/AppleWatch", async (req, res) => {
 });
 
 // // Getting Macbook data for list product.
-app.post("/api/GetDataForListProduct/Macbook", async (req, res) => {
+app.post("/GetDataForListProduct/Macbook", async (req, res) => {
   try {
     const macbooks = await MacbookModel.find();
 
@@ -505,7 +505,7 @@ app.post("/api/GetDataForListProduct/Macbook", async (req, res) => {
 });
 
 // // Getting Ipad data for list product.
-app.post("/api/GetDataForListProduct/Ipad", async (req, res) => {
+app.post("/GetDataForListProduct/Ipad", async (req, res) => {
   try {
     const ipads = await IpadModel.find();
 
@@ -528,7 +528,7 @@ app.post("/api/GetDataForListProduct/Ipad", async (req, res) => {
 });
 
 // // Getting Console data for list product.
-app.post("/api/GetDataForListProduct/Console", async (req, res) => {
+app.post("/GetDataForListProduct/Console", async (req, res) => {
   try {
     const consoles = await ConsoleModel.find();
 
@@ -552,7 +552,7 @@ app.post("/api/GetDataForListProduct/Console", async (req, res) => {
 // //#endregion
 // //#region [product-detail Requests]
 // // Getting Product data for product-detail.
-app.post("/api/ExtractData/:id", async (req, res) => {
+app.post("/ExtractData/:id", async (req, res) => {
   try {
     const _id = req.params.id;
 
@@ -607,7 +607,7 @@ app.post("/api/ExtractData/:id", async (req, res) => {
 // //#endregion
 // //#region [Product review Requests]
 // // Request for product review.
-app.post("/api/SendProductReview", async (req, res) => {
+app.post("/SendProductReview", async (req, res) => {
   try {
     const { product_id, review_owner_id, user_name, user_review, grade } =
       req.body;
@@ -639,7 +639,7 @@ app.post("/api/SendProductReview", async (req, res) => {
 });
 
 // // Get a review of the product ID.
-app.post("/api/GetProductReview/:id", async (req, res) => {
+app.post("/GetProductReview/:id", async (req, res) => {
   try {
     const prod_id = req.params.id;
 
@@ -659,7 +659,7 @@ app.post("/api/GetProductReview/:id", async (req, res) => {
 // //#endregion
 // //#region [Product favorits Requests]
 // // Add favorite product.
-app.post("/api/AddFavoriteProduct/:id", async (req, res) => {
+app.post("/AddFavoriteProduct/:id", async (req, res) => {
   try {
     const token = req.token;
     const session = await SessionModel.findOne({ token });
@@ -678,7 +678,7 @@ app.post("/api/AddFavoriteProduct/:id", async (req, res) => {
 });
 
 // // Get favorite product.
-app.post("/api/GetFavoriteProduct/:id", async (req, res) => {
+app.post("/GetFavoriteProduct/:id", async (req, res) => {
   try {
     const product_object_id = new mongoose.Types.ObjectId(req.params.id);
     const iphone_data = await IPhoneModel.findById(product_object_id);
@@ -771,7 +771,7 @@ app.post("/api/GetFavoriteProduct/:id", async (req, res) => {
 });
 
 // // Delete favorite product.
-app.post("/api/DeleteFavoriteProduct/:id", async (req, res) => {
+app.post("/DeleteFavoriteProduct/:id", async (req, res) => {
   try {
     const token = req.token;
     const session = await SessionModel.findOne({ token });
@@ -819,7 +819,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // // Adding product images to the server.
-app.post("/api/AddNewProductImg", upload.array("image", 5), async (req, res) => {
+app.post("/AddNewProductImg", upload.array("image", 5), async (req, res) => {
   try {
     const uploaded_files = req.files;
 
@@ -838,7 +838,7 @@ app.post("/api/AddNewProductImg", upload.array("image", 5), async (req, res) => 
 });
 
 // // Push product data.
-app.post("/api/AddIPhone", async (req, res) => {
+app.post("/AddIPhone", async (req, res) => {
   try {
     const {
       category,
