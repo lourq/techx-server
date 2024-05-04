@@ -2,6 +2,11 @@
   "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "https://squid-app-d6fho.ondigitalocean.app/$1",
+      "headers": { "x-forwarded-host": "test-vercel-amber-two.vercel.app" }
+    },
+    {
       "src": "/(.*)",
       "dest": "/"
     }
