@@ -50,7 +50,8 @@ const __dirname = dirname(__filename);
 app.use(express.json()); // Middleware parses incoming requests with JSON bodies.
 app.use((req, res, next) => {
   const allowedOrigins = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://test-vercel-amber-two.vercel.app"
   ];
   
   const origin = req.headers.origin;
@@ -117,9 +118,7 @@ app.post("/SendConfirmationCodeEmail", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-  });
+
 // // Push new user data.
 app.post("/NewUser", async (req, res) => {
   try {
