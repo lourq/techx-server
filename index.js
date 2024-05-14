@@ -50,8 +50,7 @@ const __dirname = dirname(__filename);
 app.use(express.json()); // Middleware parses incoming requests with JSON bodies.
 app.use((req, res, next) => {
   const allowedOrigins = [
-    "http://localhost:3000",
-    "https://test-vercel-amber-two.vercel.app"
+    "https://next-techx.vercel.app"
   ];
   
   const origin = req.headers.origin;
