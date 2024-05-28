@@ -12,6 +12,7 @@ const AirPodsSchema = new mongoose.Schema(
     brand: String,
     model: String,
     price: Number,
+    descont_price: Number,
     color: String,
     description: String,
     processor: String,

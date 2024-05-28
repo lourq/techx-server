@@ -891,13 +891,17 @@ app.post("/AddNewProductImg", upload.array('image', 5), async (req, res) =>
 app.post("/AddProduct", async (req, res) => 
 {
   const new_p = req.body;
+  let new_product;
+  const arr_color = [];
+
+  arr_color.push(new_p.product.color);
   
   try 
   {
     switch (new_p.product.category) 
     {
       case "iPhone":
-        const new_phone = new IPhoneModel(
+        new_product = new IPhoneModel(
         {
           _id: new mongoose.Types.ObjectId(), 
           category: new_p.product.category, 
@@ -915,13 +919,121 @@ app.post("/AddProduct", async (req, res) =>
           images: new_p.server_img, 
           incarousel: new_p.product.incarousel
         });
-
-        await new_phone.save();
         break;
-    
+      case "Macbook":
+        new_product = new MacbookModel(
+        {
+          _id: new mongoose.Types.ObjectId(), 
+          category: new_p.product.category, 
+          brand: new_p.product.brand, 
+          model: new_p.product.model, 
+          price: new_p.product.price, 
+          descont_price: new_p.product.descont_price,
+          color: new_p.product.color, 
+          memory: new_p.product.memory, 
+          displaySize: new_p.product.displaySize, 
+          description: new_p.product.description, 
+          os: new_p.product.os, 
+          camera: new_p.product.camera, 
+          processor: new_p.product.processor, 
+          battery: new_p.product.battery, 
+          RAM: new_p.product.RAM,
+          CPU: new_p.product.CPU,
+          GPU: new_p.product.GPU,
+          images: new_p.server_img, 
+          incarousel: new_p.product.incarousel
+        });
+        break;
+      case "Ipad":
+        new_product = new IpadModel(
+        {
+          _id: new mongoose.Types.ObjectId(), 
+          category: new_p.product.category, 
+          brand: new_p.product.brand, 
+          model: new_p.product.model, 
+          price: new_p.product.price, 
+          descont_price: new_p.product.descont_price,
+          color: arr_color, 
+          memory: new_p.product.memory, 
+          displaySize: new_p.product.displaySize, 
+          description: new_p.product.description, 
+          os: new_p.product.os, 
+          camera: new_p.product.camera, 
+          processor: new_p.product.processor, 
+          battery: new_p.product.battery, 
+          RAM: new_p.product.RAM,
+          CPU: new_p.product.CPU,
+          GPU: new_p.product.GPU,
+          images: new_p.server_img, 
+          incarousel: new_p.product.incarousel
+        });
+        break;
+      case "AirPods":
+        new_product = new AirPodsModel(
+        {
+          _id: new mongoose.Types.ObjectId(), 
+          category: new_p.product.category, 
+          brand: new_p.product.brand, 
+          model: new_p.product.model, 
+          price: new_p.product.price, 
+          descont_price: new_p.product.descont_price,
+          processor: new_p.product.processor, 
+          color: new_p.product.color, 
+          description: new_p.product.description, 
+          battery: new_p.product.battery, 
+          images: new_p.server_img, 
+          incarousel: new_p.product.incarousel
+        });
+        break;
+      case "Watch":
+        new_product = new AppleWatchModel(
+        {
+          _id: new mongoose.Types.ObjectId(), 
+          category: new_p.product.category, 
+          brand: new_p.product.brand, 
+          model: new_p.product.model, 
+          price: new_p.product.price, 
+          descont_price: new_p.product.descont_price,
+          color: arr_color, 
+          memory: new_p.product.memory, 
+          displaySize: new_p.product.displaySize, 
+          description: new_p.product.description, 
+          os: new_p.product.os, 
+          processor: new_p.product.processor, 
+          battery: new_p.product.battery, 
+          RAM: new_p.product.RAM,
+          CPU: new_p.product.CPU,
+          GPU: new_p.product.GPU,
+          images: new_p.server_img, 
+          incarousel: new_p.product.incarousel
+        });
+        break;
+      case "Console":
+        new_product = new ConsoleModel(
+        {
+          _id: new mongoose.Types.ObjectId(), 
+          category: new_p.product.category, 
+          brand: new_p.product.brand, 
+          model: new_p.product.model, 
+          price: new_p.product.price, 
+          descont_price: new_p.product.descont_price,
+          color: arr_color, 
+          memory: new_p.product.memory, 
+          description: new_p.product.description, 
+          os: new_p.product.os, 
+          processor: new_p.product.processor, 
+          RAM: new_p.product.RAM,
+          CPU: new_p.product.CPU,
+          GPU: new_p.product.GPU,
+          images: new_p.server_img, 
+          incarousel: new_p.product.incarousel
+        });
+        break;
       default:
         break;
     }
+
+    await new_product.save();
 
     res.status(200).json({ message: `${new_p.category} added successfully`});
   } 

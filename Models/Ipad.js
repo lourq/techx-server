@@ -12,6 +12,7 @@ const IpadSchema = new mongoose.Schema(
     brand: String,
     model: String,
     price: Number,
+    descont_price: Number,
     color: [String],
     memory: [String],
     displaySize: String,
