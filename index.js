@@ -20,6 +20,7 @@ import { MacbookModel } from "./Models/Macbook.js";
 import { IpadModel } from "./Models/Ipad.js";
 import { ConsoleModel } from "./Models/Console.js";
 import { ProductReviewModel } from "./Models/ProductReview.js";
+import { OrderModel } from "./Models/Order.js";
 
 // 
 //  ████████╗███████╗ █████╗ ██╗  ██╗██╗  ██╗
