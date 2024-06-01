@@ -887,7 +887,7 @@ app.post("/Order", async (req, res) =>
       products_ordered: products_ordered_ids,
       user_id: f_user_id ? f_user_id._id : null,
       date_registration: `${day}.${month}.${year}`,
-      status: "on registration"
+      status: "pending"
     });
 
     new_order.save();
