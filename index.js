@@ -1153,6 +1153,67 @@ app.post("/AddProduct", async (req, res) =>
   }
 });
 //#endregion
+//#region [Orders for admin]
+        // Get orders for admin.
+app.post("/GetOrder", async (req, res) => 
+{
+  try 
+  {
+    const order_data = await OrderModel.find();
+    const product_ids = order_data.map(order => order.products_ordered).flat();
+    const promises = product_ids.map(async __id => 
+    {
+      const iphone_data = await IPhoneModel.findById(__id);
+      const airpod_data = await AirPodsModel.findById(__id);
+      const applewatch_data = await AppleWatchModel.findById(__id);
+      const macbook_data = await MacbookModel.findById(__id);
+      const ipad_data = await IpadModel.findById(__id);
+      const console_data = await ConsoleModel.findById(__id);
+      return [iphone_data, airpod_data, applewatch_data, macbook_data, ipad_data, console_data];
+    });
+    const data_product = await Promise.all(promises);
+    const flattened_data_product = data_product.flat().filter(product => product !== null);
+    const formatted_data = order_data.map(order => (
+    {
+      _id: order._id,
+      name: order.name,
+      email: order.email,
+      phone: order.phone,
+      city: order.city,
+      delivery_adress: order.delivery_adress,
+      sum: order.sum,
+      products: flattened_data_product.filter(product => order.products_ordered.includes(product._id)),
+      date: order.date_registration,
+      payment_method: order.payment_state,
+      status: order.status
+    }));
+    res.status(200).json({ formatted_data });
+  } 
+  catch (error) 
+  {
+    console.error(error);
+    res.status(500).json({ success: false });
+  }
+});
+
+        // Change status order for admin.
+app.post("/ChangeStatusOrder", async (req, res) => 
+{
+  const status_for = req.body;
+
+  try 
+  {
+    await OrderModel.findByIdAndUpdate(status_for._id, { status: status_for.status }, { new: true });
+
+    res.status(200).json({ success: true, message: `Status successfully changed to ${status_for.status}`});
+  } 
+  catch (error) 
+  {
+    console.error(error);
+    res.status(500).json({ success: false, message: `Status change error`});
+  }
+});
+//#endregion
 //#region [Reviews for admin]
       // Get all reviews for admin.
 app.post("/GetProductReview", async (req, res) => 
