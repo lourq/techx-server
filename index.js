@@ -11,6 +11,7 @@ import { dirname, join } from "path";
 import path from "path";
 import multer from "multer";
 import SEND_CODE_VERIFICATION from "./Configs/config_gmail.js";
+import { getPhoneSpecs } from "./PhoneSpecs/getPhoneSpecs.js";
 import { UserModel } from "./Models/User.js";
 import { SessionModel } from "./Models/Session.js";
 import { IPhoneModel } from "./Models/Iphone.js";
@@ -49,6 +50,7 @@ const __dirname = dirname(__filename);
 
 //#region [Middlewares]
 app.use(express.json());  // Middleware parses incoming requests with JSON bodies.
+app.use(express.urlencoded({ limit: '50mb' ,extended: true }));
 app.use((req, res, next) =>  // Middleware for handling CORS.
 {
   const allowedOrigins = ["http://localhost:3000", "https://next-techx.vercel.app"];
@@ -1419,6 +1421,22 @@ app.post("/AdminChecked", async (req, res) =>
     res.status(500).json({ success: false });
   }
 });
+
+app.post("/api/GetPhoneData", async (req, res) => {
+  const modelName = req.body.model;
+
+  if (!modelName) {
+    return res.status(400).json({ error: 'Model name is required' });
+  }
+
+  try {
+    const details = await getPhoneSpecs(modelName);
+    return res.json(details);
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 //#endregion
 //=============================================================================================
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
