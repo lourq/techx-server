@@ -20,4 +20,4 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh -o StrictHostKeyChecking=no user@161.35.18.201 "cd ~/TechX/techx-server && git pull origin main"
+        ssh -o StrictHostKeyChecking=no user@161.35.18.201 "cd ~/TechX/techx-server && git pull origin main && pm2 start npm --name 'techx-server' -- run server || pm2 restart techx-server"
