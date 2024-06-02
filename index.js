@@ -1153,6 +1153,74 @@ app.post("/AddProduct", async (req, res) =>
   }
 });
 //#endregion
+//#region [Remove Product sector.]
+        // Remove product from display.
+app.post("/RemoveProductFromDB", async (req, res) => 
+{
+  const { category, model } = req.body;
+  
+  try 
+  {
+    let product_model;
+
+    switch (category) 
+    {
+      case "iPhone":
+        product_model = IPhoneModel;
+        break;
+      case "Macbook":
+        product_model = MacbookModel;
+        break;
+      case "Ipad":
+        product_model = IpadModel;
+        break;
+      case "AirPods":
+        product_model = AirPodsModel;
+        break;
+      case "Watch":
+        product_model = AppleWatchModel;
+        break;
+      case "Console":
+        product_model = ConsoleModel;
+        break;
+      default:
+        return res.status(400).json({ success: false, message: "Invalid product category" });
+    }
+
+    const result = await product_model.findOneAndDelete({ model: model });
+    const image_paths = result.images;
+
+    image_paths.forEach(image => 
+    {
+      const full_path = path.join(__dirname, 'ProductImages', image);
+      
+      fs.access(full_path, fs.constants.F_OK, (err) => 
+      {
+        if (err) 
+          console.error(`Image not found: ${full_path}`);
+        else 
+        {
+          fs.unlink(full_path, (err) => 
+          {
+            if (err) 
+              console.error(`Error deleting image: ${full_path}`, err);
+          });
+        }
+      });
+    });
+
+    if (result) 
+      res.status(200).json({ success: true, message: "Product removed successfully" }); 
+    else
+        res.status(404).json({ success: false, message: "Product not found" });
+  } 
+  catch (error) 
+  {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+//#endregion
 //#region [Orders for admin]
         // Get orders for admin.
 app.post("/GetOrder", async (req, res) => 
