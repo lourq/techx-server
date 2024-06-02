@@ -76,7 +76,7 @@ app.use((req, res, next) =>  // Middleware to extract the token from the Authori
 //#endregion
 
 const DB_URL = _techx_data_connection_string;  // process.env.MONGODB_URI;
-const PORT = 80;  // process.env.PORT;
+const PORT = 3000;  // process.env.PORT;
 
 //#region [TECHX]
 // + + + + + + + + + + + + + + + + + + + TECHX + + + + + + + + + + + + + + + + + + +
