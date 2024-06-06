@@ -1025,6 +1025,7 @@ app.post("/AddProduct", async (req, res) =>
           displaySize: new_p.product.displaySize, 
           description: new_p.product.description, 
           os: new_p.product.os, 
+          battery: new_p.product.battery, 
           camera: new_p.product.camera, 
           processor: new_p.product.processor, 
           images: new_p.server_img, 
