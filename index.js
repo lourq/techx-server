@@ -448,7 +448,7 @@ app.post("/GettingDataForCarusel", async (req, res) =>
     const formatted_data_ipads = ipads.filter(i => i.incarousel === true).map(i => 
     {
       return { id: i.id, images: i.images[0], model: i.model, price: i.price, descont_price: i.descont_price };
-    });
+    }); 
 
     const consoles = await ConsoleModel.find();
   
