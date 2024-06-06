@@ -448,13 +448,13 @@ app.post("/GettingDataForCarusel", async (req, res) =>
     const formatted_data_ipads = ipads.filter(i => i.incarousel === true).map(i => 
     {
       return { id: i.id, images: i.images[0], model: i.model, price: i.price, descont_price: i.descont_price };
-    }); 
+    });
 
     const consoles = await ConsoleModel.find();
   
     const formatted_data_consoles = consoles.filter(i => i.incarousel === true).map(i => 
     {
-      return { id: i.id, images: i.images[0], model: i.model, price: i.price };
+      return { id: i.id, images: i.images[0], model: i.model, price: i.price, descont_price: i.descont_price };
     });
 
     const formatted_data = [...formatted_data_iphones , ...formatted_data_airpods, ...formatted_data_applewatchs, ...formatted_data_macbooks, ...formatted_data_ipads, ...formatted_data_consoles]; 
