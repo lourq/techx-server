@@ -14,6 +14,7 @@ const IPhoneSchema = new mongoose.Schema(
     price: Number,
     descont_price: Number,
     color: String,
+    battery: String,
     memory: String,
     displaySize: String,
     description: String,
