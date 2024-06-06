@@ -477,7 +477,7 @@ app.post("/GetDataForListProduct/Iphone", async (req, res) =>
     const iphones = await IPhoneModel.find();
     const formatted_data = iphones.map(phone => 
     {
-      return { id: phone.id, images: phone.images[0], model: phone.model, memory: phone.memory, color: phone.color, price: phone.price };
+      return { id: phone.id, images: phone.images[0], model: phone.model, memory: phone.memory, color: phone.color, price: phone.price, descont_price: phone.descont_price };
     });
 
     res.status(200).json(formatted_data);
@@ -498,7 +498,7 @@ app.post("/GetDataForListProduct/AirPods", async (req, res) =>
 
     const formatted_data = airpods.map(airpod => 
     {
-      return { id: airpod.id, images: airpod.images[0], model: airpod.model, color: airpod.color, price: airpod.price };
+      return { id: airpod.id, images: airpod.images[0], model: airpod.model, color: airpod.color, price: airpod.price, descont_price: airpod.descont_price };
     });
 
     res.status(200).json(formatted_data);
@@ -519,7 +519,7 @@ app.post("/GetDataForListProduct/AppleWatch", async (req, res) =>
 
     const formatted_data = applewatchs.map(applewatch => 
     {
-      return { id: applewatch.id, images: applewatch.images[0], model: applewatch.model, color: applewatch.color[0], price: applewatch.price };
+      return { id: applewatch.id, images: applewatch.images[0], model: applewatch.model, color: applewatch.color[0], price: applewatch.price, descont_price: applewatch.descont_price };
     });
 
     res.status(200).json(formatted_data);
@@ -540,7 +540,7 @@ app.post("/GetDataForListProduct/Macbook", async (req, res) =>
 
     const formatted_data = macbooks.map(macbook => 
     {
-      return { id: macbook.id, images: macbook.images[0], model: macbook.model, memory: macbook.memory, color: macbook.color, price: macbook.price };
+      return { id: macbook.id, images: macbook.images[0], model: macbook.model, memory: macbook.memory, color: macbook.color, price: macbook.price, descont_price: macbook.descont_price };
     });
 
     res.status(200).json(formatted_data);
@@ -561,7 +561,7 @@ app.post("/GetDataForListProduct/Ipad", async (req, res) =>
 
     const formatted_data = ipads.map(ipad => 
     {
-      return { id: ipad.id, images: ipad.images[0], model: ipad.model, memory: ipad.memory[0], color: ipad.color[0], price: ipad.price };
+      return { id: ipad.id, images: ipad.images[0], model: ipad.model, memory: ipad.memory[0], color: ipad.color[0], price: ipad.price, descont_price: ipad.descont_price };
     });
 
     res.status(200).json(formatted_data);
@@ -582,7 +582,7 @@ app.post("/GetDataForListProduct/Console", async (req, res) =>
 
     const formatted_data = consoles.map(console => 
     {
-      return { id: console.id, images: console.images[0], model: console.model, memory: console.memory, color: console.color[0], price: console.price };
+      return { id: console.id, images: console.images[0], model: console.model, memory: console.memory, color: console.color[0], price: console.price, descont_price: console.descont_price };
     });
 
     res.status(200).json(formatted_data);
