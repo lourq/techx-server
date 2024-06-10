@@ -1290,18 +1290,18 @@ app.post("/ChangeStatusOrder", async (req, res) =>
         // Mark order verification for admin.
 app.post("/MarkOrderVerification", async (req, res) => 
 {
-  const id = req.body;
+  const { _id } = req.body;
 
   try 
   {
-    await OrderModel.findByIdAndUpdate(id._id, { viewed_admin: true }, { new: true });
-
+    await OrderModel.findByIdAndUpdate(_id, { viewed_admin: true }, { new: true });
+  
     res.status(200).json({ success: true });
   } 
   catch (error) 
   {
     console.error(error);
-    res.status(500).json({ success: false, message: `Status change error`});
+    res.status(500).json({ success: false, message: 'Status change error' });
   }
 });
 //#endregion
