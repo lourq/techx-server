@@ -890,7 +890,8 @@ app.post("/Order", async (req, res) =>
       products_ordered: products_ordered_ids,
       user_id: f_user_id ? f_user_id._id : null,
       date_registration: `${day}.${month}.${year}`,
-      status: "pending"
+      status: "pending",
+      viewed_admin: false
     });
 
     new_order.save();
@@ -1256,7 +1257,8 @@ app.post("/GetOrder", async (req, res) =>
       products: flattened_data_product.filter(product => order.products_ordered.includes(product._id)),
       date: order.date_registration,
       payment_method: order.payment_state,
-      status: order.status
+      status: order.status,
+      viewed_admin: order.viewed_admin
     }));
     res.status(200).json({ formatted_data });
   } 

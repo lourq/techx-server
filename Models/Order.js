@@ -18,7 +18,8 @@ const OrderSchema = new mongoose.Schema(
   products_ordered: [mongoose.Schema.Types.ObjectId],
   user_id: mongoose.Schema.Types.ObjectId,
   date_registration: String,
-  status: String
+  status: String,
+  viewed_admin: Boolean
 }, { collection:  'Orders' })
 
 const OrderModel = mongoose.model('order', OrderSchema);
