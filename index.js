@@ -1286,6 +1286,24 @@ app.post("/ChangeStatusOrder", async (req, res) =>
     res.status(500).json({ success: false, message: `Status change error`});
   }
 });
+
+        // Mark order verification for admin.
+app.post("/MarkOrderVerification", async (req, res) => 
+{
+  const id = req.body;
+
+  try 
+  {
+    await OrderModel.findByIdAndUpdate(id, { viewed_admin: true }, { new: true });
+
+    res.status(200).json({ success: true });
+  } 
+  catch (error) 
+  {
+    console.error(error);
+    res.status(500).json({ success: false, message: `Status change error`});
+  }
+});
 //#endregion
 //#region [Reviews for admin]
       // Get all reviews for admin.
