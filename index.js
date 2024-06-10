@@ -1294,7 +1294,7 @@ app.post("/MarkOrderVerification", async (req, res) =>
 
   try 
   {
-    await OrderModel.findByIdAndUpdate(id, { viewed_admin: true }, { new: true });
+    await OrderModel.findByIdAndUpdate(id._id, { viewed_admin: true }, { new: true });
 
     res.status(200).json({ success: true });
   } 
