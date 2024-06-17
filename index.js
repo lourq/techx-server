@@ -654,24 +654,24 @@ app.post("/ExtractData/:id", async (req, res) =>
       }
       else
         res.status(404).json({ message: "Product not found" });
-    }
 
-    const p_id = await ProductActivityModel.findOne({ product_id: _id });
+      const p_id = await ProductActivityModel.findOne({ _id });
 
-    if(p_id)
-    {
-      
-    }
-    else
-    {
-      const new_activity = new ProductActivityModel(
-      { 
-        product_id: _id, 
-        number_views: 1,
-        number_sales: 0
-      });
-
-      await new_activity.save();
+      if(p_id)
+      {
+        
+      }
+      else
+      {
+        const new_activity = new ProductActivityModel(
+        { 
+          product_id: _id, 
+          number_views: 1,
+          number_sales: 0
+        });
+  
+        await new_activity.save();
+      }
     }
   } 
   catch (error) 
