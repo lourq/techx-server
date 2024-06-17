@@ -655,13 +655,9 @@ app.post("/ExtractData/:id", async (req, res) =>
       else
         res.status(404).json({ message: "Product not found" });
 
-      const p_id = await ProductActivityModel.findOne({ _id });
-
+      const p_id = await ProductActivityModel.findOne({ product_id: _id });
+      
       if(p_id)
-      {
-        
-      }
-      else
       {
         const new_activity = new ProductActivityModel(
         { 
@@ -671,6 +667,10 @@ app.post("/ExtractData/:id", async (req, res) =>
         });
   
         await new_activity.save();
+      }
+      else
+      {
+
       }
     }
   } 
