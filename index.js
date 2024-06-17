@@ -671,7 +671,7 @@ app.post("/ExtractData/:id", async (req, res) =>
         number_sales: 0
       });
 
-      new_activity.save();
+      await new_activity.save();
     }
   } 
   catch (error) 
