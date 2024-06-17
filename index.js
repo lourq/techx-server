@@ -22,6 +22,7 @@ import { IpadModel } from "./Models/Ipad.js";
 import { ConsoleModel } from "./Models/Console.js";
 import { ProductReviewModel } from "./Models/ProductReview.js";
 import { OrderModel } from "./Models/Order.js";
+import { ProductActivityModel } from "./Models/ProductActivity.js";
 
 // 
 //  ████████╗███████╗ █████╗ ██╗  ██╗██╗  ██╗
@@ -654,6 +655,24 @@ app.post("/ExtractData/:id", async (req, res) =>
       else
         res.status(404).json({ message: "Product not found" });
     }
+
+    const p_id = await ProductActivityModel.findOne({ product_id: _id });
+
+    if(p_id)
+    {
+      
+    }
+    else
+    {
+      const new_activity = new ProductActivityModel(
+      { 
+        product_id: received_id, 
+        number_views: 1,
+        number_sales: 0
+      });
+
+      new_activity.save();
+    }
   } 
   catch (error) 
   {
@@ -947,6 +966,23 @@ app.post("/GetOrderHistory", async (req, res) =>
     }
     else
       res.status(404).json({ message: "User not found" });
+  } 
+  catch (error) 
+  {
+    console.error(error);
+    res.status(500).json({});
+  }
+});
+//#endregion
+//#region [Activity]
+        // Activity recording product.
+app.post("/RecordProductBrowsingActivity", async (req, res) => 
+{
+
+  try 
+  {
+
+
   } 
   catch (error) 
   {
