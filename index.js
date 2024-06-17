@@ -609,7 +609,8 @@ app.post("/ExtractData/:id", async (req, res) =>
       
       if(p_id)
       {
-        
+        p_id.number_views++;
+        await p_id.save();
       }
       else
       {
