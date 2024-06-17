@@ -666,7 +666,7 @@ app.post("/ExtractData/:id", async (req, res) =>
     {
       const new_activity = new ProductActivityModel(
       { 
-        product_id: received_id, 
+        product_id: _id, 
         number_views: 1,
         number_sales: 0
       });
