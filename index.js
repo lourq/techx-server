@@ -605,24 +605,6 @@ app.post("/ExtractData/:id", async (req, res) =>
     
     if(_id !== "null")
     {
-      const p_id = await ProductActivityModel.findOne({ product_id: _id });
-
-      if(p_id)
-      {
-        
-      }
-      else
-      {
-        const new_activity = new ProductActivityModel(
-        { 
-          product_id: received_id, 
-          number_views: 1,
-          number_sales: 0
-        });
-  
-        new_activity.save();
-      }
-
       const iphone_data = await IPhoneModel.findById(_id);
       
       if (iphone_data) 
@@ -672,6 +654,24 @@ app.post("/ExtractData/:id", async (req, res) =>
       }
       else
         res.status(404).json({ message: "Product not found" });
+    }
+
+    const p_id = await ProductActivityModel.findOne({ product_id: _id });
+
+    if(p_id)
+    {
+      
+    }
+    else
+    {
+      const new_activity = new ProductActivityModel(
+      { 
+        product_id: received_id, 
+        number_views: 1,
+        number_sales: 0
+      });
+
+      new_activity.save();
     }
   } 
   catch (error) 
