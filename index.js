@@ -1337,6 +1337,8 @@ app.post('/GetProductStatistics', async (req, res) =>
       try 
       {
         let model = null;
+        let number_views = 0;
+        let number_sales = 0;
 
         if (await IPhoneModel.exists({ _id: activity.product_id })) 
           model = await IPhoneModel.findById(activity.product_id).select('model').lean();
@@ -1351,7 +1353,17 @@ app.post('/GetProductStatistics', async (req, res) =>
         else if (await ConsoleModel.exists({ _id: activity.product_id }))
           model = await ConsoleModel.findById(activity.product_id).select('model').lean();
 
-        return model;
+        number_views = activity.number_views;
+        number_sales = activity.number_sales;
+
+        const product_stats = 
+        {
+          model: model.model,
+          number_views,
+          number_sales
+        };
+
+        return productStats;
       } 
       catch (error) 
       {
