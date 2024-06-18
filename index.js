@@ -603,7 +603,7 @@ app.post("/ExtractData/:id", async (req, res) =>
   {
     const _id = req.params.id;
     
-    if(_id !== "null")
+    if(_id !== null)
     {
       const p_id = await ProductActivityModel.findOne({ product_id: _id });
       
@@ -618,7 +618,8 @@ app.post("/ExtractData/:id", async (req, res) =>
         { 
           product_id: _id, 
           number_views: 1,
-          number_sales: 0
+          number_sales: 0,
+          number_favorites: 0
         });
   
         await new_activity.save();
@@ -759,6 +760,18 @@ app.post("/AddFavoriteProduct/:id", async (req, res) =>
     const token = req.token;
     const session = await SessionModel.findOne({ token });
     const product_object_id = new mongoose.Types.ObjectId(req.params.id);
+
+    if(req.params.id !== null)
+    {
+      const p_id = await ProductActivityModel.findOne({ product_id: req.params.id });
+      
+      if(p_id)
+      {
+        p_id.number_favorites++;
+
+        await p_id.save();
+      }
+    }
     
     if (session) 
     {
@@ -849,9 +862,21 @@ app.post("/DeleteFavoriteProduct/:id", async (req, res) =>
     
     if (session) 
     {
-      const user = await UserModel.findOne({ _id: session.user_id });
+      if(req.params.id !== null)
+      {
+        const p_id = await ProductActivityModel.findOne({ product_id: req.params.id });
+        
+        if(p_id)
+        {
+          p_id.number_favorites--;
+  
+          await p_id.save();
+        }
+      }
 
+      const user = await UserModel.findOne({ _id: session.user_id });
       const index_f = user.favourites.indexOf(product_object_id);
+      
       if (index_f === -1)
         return res.status(400).json({ message: "Product not found in favourites" });
   
@@ -1353,6 +1378,7 @@ app.post('/GetProductStatistics', async (req, res) =>
         let model = null;
         let number_views = 0;
         let number_sales = 0;
+        let number_favorites = 0;
 
         if (await IPhoneModel.exists({ _id: activity.product_id })) 
           model = await IPhoneModel.findById(activity.product_id).select('model').lean();
@@ -1369,6 +1395,7 @@ app.post('/GetProductStatistics', async (req, res) =>
 
         number_views = activity.number_views;
         number_sales = activity.number_sales;
+        number_favorites = activity.number_favorites;
 
         if (model) 
         {
@@ -1376,7 +1403,8 @@ app.post('/GetProductStatistics', async (req, res) =>
           {
             model: model.model,
             number_views,
-            number_sales
+            number_sales,
+            number_favorites
           };
 
           return product_stats;

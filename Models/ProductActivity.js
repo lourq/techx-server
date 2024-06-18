@@ -9,7 +9,8 @@ const ProductActivitySchema = new mongoose.Schema(
 {
     product_id: mongoose.Schema.Types.ObjectId,
     number_views: Number,
-    number_sales: Number
+    number_sales: Number,
+    number_favorites: Number,
 }, { collection: 'ProductActivity' })
 
 const ProductActivityModel = mongoose.model('product_activity', ProductActivitySchema);
