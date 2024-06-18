@@ -876,7 +876,7 @@ app.post("/DeleteFavoriteProduct/:id", async (req, res) =>
 
       const user = await UserModel.findOne({ _id: session.user_id });
       const index_f = user.favourites.indexOf(product_object_id);
-      
+
       if (index_f === -1)
         return res.status(400).json({ message: "Product not found in favourites" });
   
@@ -1271,6 +1271,8 @@ app.post("/RemoveProductFromDB", async (req, res) =>
         }
       });
     });
+
+    await ProductActivityModel.deleteMany({ product_id: result._id });
 
     if (result) 
       res.status(200).json({ success: true, message: "Product removed successfully" }); 
