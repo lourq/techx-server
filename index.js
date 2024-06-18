@@ -1327,15 +1327,11 @@ app.post("/MarkOrderVerification", async (req, res) =>
 //#endregion
 //#region [Activity sector.]
       // Returns all product statistics.
-app.post('/GetProductStatistics', async (req, res) => 
-{
-  try 
-  {
+app.post('/GetProductStatistics', async (req, res) => {
+  try {
     const prod_activities = await ProductActivityModel.find({});
-    const models_data = await Promise.all(prod_activities.map(async activity => 
-    {
-      try 
-      {
+    const models_data = await Promise.all(prod_activities.map(async activity => {
+      try {
         let model = null;
         let number_views = 0;
         let number_sales = 0;
@@ -1356,26 +1352,29 @@ app.post('/GetProductStatistics', async (req, res) =>
         number_views = activity.number_views;
         number_sales = activity.number_sales;
 
-        const product_stats = 
-        {
-          model: model.model,
-          number_views,
-          number_sales
-        };
-
-        return productStats;
-      } 
-      catch (error) 
-      {
+        if (model) {
+          // Если model не равно null, создаем объект с нужными данными
+          const product_stats = {
+            model: model.model, // Обратите внимание, что здесь используется model.model
+            number_views,
+            number_sales
+          };
+          return product_stats;
+        } else {
+          // Если model равно null, возвращаем null или пустой объект, в зависимости от вашего требования
+          return null;
+        }
+      } catch (error) {
         console.error('Error fetching model data:', error);
         return null;
       }
     }));
 
-    res.status(200).json(models_data);
-  } 
-  catch (error) 
-  {
+    // Фильтрация null значений, если это необходимо
+    const filtered_models_data = models_data.filter(model => model !== null);
+
+    res.status(200).json(filtered_models_data);
+  } catch (error) {
     console.error('Error fetching product statistics:', error);
     res.status(500).json({ error: 'An error occurred while fetching product statistics' });
   }
