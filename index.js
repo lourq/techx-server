@@ -975,23 +975,6 @@ app.post("/GetOrderHistory", async (req, res) =>
   }
 });
 //#endregion
-//#region [Activity]
-        // Activity recording product.
-app.post("/RecordProductBrowsingActivity", async (req, res) => 
-{
-
-  try 
-  {
-
-
-  } 
-  catch (error) 
-  {
-    console.error(error);
-    res.status(500).json({});
-  }
-});
-//#endregion
 //=============================================================================================
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 //#endregion
@@ -1339,6 +1322,36 @@ app.post("/MarkOrderVerification", async (req, res) =>
   {
     console.error(error);
     res.status(500).json({ success: false, message: 'Status change error' });
+  }
+});
+//#endregion
+//#region [Activity sector.]
+      // Returns all product statistics.
+app.post('/GetProductStatistics', async (req, res) =>
+{
+  try 
+  {
+    const prod_activitis = await ProductActivityModel.find({});
+    const models_data = await Promise.all(prod_activitis.map(async activity => 
+    {
+      const iphone_data = await IPhoneModel.findById(activity.product_id);
+      const airpod_data = await AirPodsModel.findById(activity.product_id);
+      const applewatch_data = await AppleWatchModel.findById(activity.product_id);
+      const macbook_data = await MacbookModel.findById(activity.product_id);
+      const ipad_data = await IpadModel.findById(activity.product_id);
+      const console_data = await ConsoleModel.findById(activity.product_id);
+
+      return [iphone_data, airpod_data, applewatch_data, macbook_data, ipad_data, console_data].filter(data => data !== null);
+    }));
+
+    const flattened_models_data = models_data.flat();
+    
+    res.status(200).json(flattened_models_data);
+  } 
+  catch (error) 
+  {
+    console.error('Error fetching product statistics:', error);
+    res.status(500).json({ error: 'An error occurred while fetching product statistics' });
   }
 });
 //#endregion
