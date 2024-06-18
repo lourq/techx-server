@@ -1327,29 +1327,43 @@ app.post("/MarkOrderVerification", async (req, res) =>
 //#endregion
 //#region [Activity sector.]
       // Returns all product statistics.
-app.post('/GetProductStatistics', async (req, res) =>
-{
+app.post('/GetProductStatistics', async (req, res) => {
   try 
   {
-    const prod_activitis = await ProductActivityModel.find({});
-    const models_data = await Promise.all(prod_activitis.map(async activity => 
+    const prod_activities = await ProductActivityModel.find({});
+    const models_data = await Promise.all(prod_activities.map(async activity => 
     {
-      const iphone_data = await IPhoneModel.findById(activity.product_id);
-      const airpod_data = await AirPodsModel.findById(activity.product_id);
-      const applewatch_data = await AppleWatchModel.findById(activity.product_id);
-      const macbook_data = await MacbookModel.findById(activity.product_id);
-      const ipad_data = await IpadModel.findById(activity.product_id);
-      const console_data = await ConsoleModel.findById(activity.product_id);
+      let model = null;
 
-      return [iphone_data, airpod_data, applewatch_data, macbook_data, ipad_data, console_data].filter(data => data !== null);
+      switch (activity.category) 
+      {
+        case 'iPhone':
+          model = await IPhoneModel.findById(activity.product_id).select('model').lean();
+          break;
+        case 'AirPods':
+          model = await AirPodsModel.findById(activity.product_id).select('model').lean();
+          break;
+        case 'AppleWatch':
+          model = await AppleWatchModel.findById(activity.product_id).select('model').lean();
+          break;
+        case 'Macbook':
+          model = await MacbookModel.findById(activity.product_id).select('model').lean();
+          break;
+        case 'iPad':
+          model = await IpadModel.findById(activity.product_id).select('model').lean();
+          break;
+        case 'Console':
+          model = await ConsoleModel.findById(activity.product_id).select('model').lean();
+          break;
+        default:
+          break;
+      }
+
+      return model;
     }));
 
-    const flattened_models_data = models_data.flat();
-    
-    res.status(200).json(flattened_models_data.model);
-  } 
-  catch (error) 
-  {
+    res.status(200).json(models_data);
+  } catch (error) {
     console.error('Error fetching product statistics:', error);
     res.status(500).json({ error: 'An error occurred while fetching product statistics' });
   }
