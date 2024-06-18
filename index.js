@@ -603,7 +603,7 @@ app.post("/ExtractData/:id", async (req, res) =>
   {
     const _id = req.params.id;
     
-    if(_id !== null)
+    if(_id !== "null")
     {
       const p_id = await ProductActivityModel.findOne({ product_id: _id });
       
