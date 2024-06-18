@@ -1331,25 +1331,31 @@ app.post('/GetProductStatistics', async (req, res) =>
 {
   try 
   {
-    const prod_activitis = await ProductActivityModel.find({});
-    const models_data = await Promise.all(prod_activitis.map(async activity => 
-    {
-      const iphone_data = await IPhoneModel.findById(activity.product_id);
-      const airpod_data = await AirPodsModel.findById(activity.product_id);
-      const applewatch_data = await AppleWatchModel.findById(activity.product_id);
-      const macbook_data = await MacbookModel.findById(activity.product_id);
-      const ipad_data = await IpadModel.findById(activity.product_id);
-      const console_data = await ConsoleModel.findById(activity.product_id);
+    const prod_activities = await ProductActivityModel.find({});
+    const statistics = await Promise.all(prod_activities.map(async activity => {
+      const { product_id, number_views, number_sales, product_type } = activity;
 
-      return [iphone_data, airpod_data, applewatch_data, macbook_data, ipad_data, console_data].filter(data => data !== null);
+      // Проверяем наличие модели для данного типа продукта
+      if (!models.hasOwnProperty(product_type)) {
+        throw new Error(`Model not found for product type: ${product_type}`);
+      }
+
+      // Загружаем модель товара
+      const Model = models[product_type].default;
+      const model = await Model.findById(product_id);
+
+      // Формируем объект статистики продукта
+      const productStatistics = {
+        model: model ? model.toObject() : null,
+        number_views,
+        number_sales
+      };
+
+      return productStatistics;
     }));
 
-    const flattened_models_data = models_data.flat();
-    
-    res.status(200).json(flattened_models_data);
-  } 
-  catch (error) 
-  {
+    res.status(200).json(statistics);
+  } catch (error) {
     console.error('Error fetching product statistics:', error);
     res.status(500).json({ error: 'An error occurred while fetching product statistics' });
   }
