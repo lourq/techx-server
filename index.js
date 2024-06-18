@@ -915,6 +915,20 @@ app.post("/Order", async (req, res) =>
     });
 
     new_order.save();
+
+    for (const _id of products_ordered_ids) 
+    {
+      if (_id !== null) 
+      {
+          const p_id = await ProductActivityModel.findOne({ product_id: _id });
+          
+          if (p_id)
+          {
+            p_id.number_sales++; 
+            await p_id.save();
+          } 
+      }
+    }
     
     res.status(200).json({ message: "Order submitted successfully" }); 
   } 
