@@ -1079,7 +1079,7 @@ app.post("/AddProduct", async (req, res) =>
           brand: new_p.product.brand, 
           model: new_p.product.model, 
           price: new_p.product.price, 
-          descont_price: new_p.product.descont_price ?? 0,
+          descont_price: new_p.product.descont_price || new_p.product.descont_price === "" ? 0 : new_p.product.descont_price,
           color: new_p.product.color, 
           memory: new_p.product.memory, 
           displaySize: new_p.product.displaySize, 
