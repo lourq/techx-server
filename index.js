@@ -1327,47 +1327,48 @@ app.post("/MarkOrderVerification", async (req, res) =>
 //#endregion
 //#region [Activity sector.]
       // Returns all product statistics.
-app.post('/GetProductStatistics', async (req, res) => {
+app.post('/GetProductStatistics', async (req, res) => 
+{
   try 
   {
     const prod_activities = await ProductActivityModel.find({});
     const models_data = await Promise.all(prod_activities.map(async activity => 
     {
-      let model = null;
-
-      switch (activity.category) 
+      try 
       {
-        case 'iPhone':
-          model = await IPhoneModel.findById(activity.product_id).select('model').lean();
-          break;
-        case 'AirPods':
-          model = await AirPodsModel.findById(activity.product_id).select('model').lean();
-          break;
-        case 'AppleWatch':
-          model = await AppleWatchModel.findById(activity.product_id).select('model').lean();
-          break;
-        case 'Macbook':
-          model = await MacbookModel.findById(activity.product_id).select('model').lean();
-          break;
-        case 'iPad':
-          model = await IpadModel.findById(activity.product_id).select('model').lean();
-          break;
-        case 'Console':
-          model = await ConsoleModel.findById(activity.product_id).select('model').lean();
-          break;
-        default:
-          break;
-      }
+        let model = null;
 
-      return model;
+        if (await IPhoneModel.exists({ _id: activity.product_id })) 
+          model = await IPhoneModel.findById(activity.product_id).select('model').lean();
+        else if (await AirPodsModel.exists({ _id: activity.product_id }))
+          model = await AirPodsModel.findById(activity.product_id).select('model').lean();
+        else if (await AppleWatchModel.exists({ _id: activity.product_id }))
+          model = await AppleWatchModel.findById(activity.product_id).select('model').lean();
+        else if (await MacbookModel.exists({ _id: activity.product_id }))
+          model = await MacbookModel.findById(activity.product_id).select('model').lean();
+        else if (await IpadModel.exists({ _id: activity.product_id }))
+          model = await IpadModel.findById(activity.product_id).select('model').lean();
+        else if (await ConsoleModel.exists({ _id: activity.product_id }))
+          model = await ConsoleModel.findById(activity.product_id).select('model').lean();
+
+        return model;
+      } 
+      catch (error) 
+      {
+        console.error('Error fetching model data:', error);
+        return null;
+      }
     }));
 
     res.status(200).json(models_data);
-  } catch (error) {
+  } 
+  catch (error) 
+  {
     console.error('Error fetching product statistics:', error);
     res.status(500).json({ error: 'An error occurred while fetching product statistics' });
   }
 });
+
 //#endregion
 //#region [Reviews for admin]
       // Get all reviews for admin.
