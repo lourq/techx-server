@@ -314,7 +314,7 @@ app.post("/CnangeProfilData", async (req, res) =>
     
     await user.save();
     
-    res.status(200).json({ message: "Profile updated successfully", user });
+    res.status(200).json({ message: "Profile updated successfully" });
   } 
   catch (error) 
   {
