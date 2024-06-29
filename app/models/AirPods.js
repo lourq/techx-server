@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 /*
- * AirPods model for working with MongoDB.
+ * AirPods models for working with MongoDB.
  * Defines the AirPods data structure using Data stored in the 'AirPods' collection.
  */
 

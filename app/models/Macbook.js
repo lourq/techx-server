@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 /*
- * Ipad model for working with MongoDB.
- * Defines the ipad data structure using Data stored in the 'Ipad' collection.
+ * Macbook models for working with MongoDB.
+ * Defines the Macbook data structure using Data stored in the 'Macbook' collection.
  */
 
-const IpadSchema = new mongoose.Schema(
+const MacbookSchema = new mongoose.Schema(
   {
     _id: mongoose.Schema.Types.ObjectId,
     category: String,
@@ -13,8 +13,8 @@ const IpadSchema = new mongoose.Schema(
     model: String,
     price: Number,
     descont_price: Number,
-    color: [String],
-    memory: [String],
+    color: String,
+    memory: String,
     displaySize: String,
     description: String,
     os: String,
@@ -27,9 +27,9 @@ const IpadSchema = new mongoose.Schema(
     images: [String],
     incarousel: Boolean,
   },
-  { collection: "Ipad" }
+  { collection: "Macbook" }
 );
 
-const IpadModel = mongoose.model("ipad", IpadSchema);
+const MacbookModel = mongoose.model("macbook", MacbookSchema);
 
-export { IpadModel };
+export { MacbookModel };

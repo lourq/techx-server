@@ -2,14 +2,12 @@ import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import path from "path";
 import fs from "fs/promises";
-import { fileURLToPath } from "url";
+import __dirname from "../app/utils/dirnameUtil.js"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-const _postcard_path = path.join(__dirname, "../Content/html/GmailVerefication.html");
+const _postcard_path = path.join(__dirname, "../views/content/html/GmailVerefication.html");
 let _user_gmail;
 let _code;
 

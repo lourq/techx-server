@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 /*
-  * Product activity model for working with MongoDB.
+  * Product activity models for working with MongoDB.
   * Defines the activity data structure using Data stored in the 'ProductActivity' collection.
 */
 

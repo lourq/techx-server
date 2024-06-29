@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 /*
-  * Session model for working with MongoDB.
+  * Session models for working with MongoDB.
   * Defines the session data structure using Data stored in the 'UserSessions' collection.
 */
 

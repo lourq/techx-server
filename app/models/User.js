@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 /*
- * User model for working with MongoDB.
+ * User models for working with MongoDB.
  * Defines the user data structure using Data stored in the 'Users' collection.
  */
 

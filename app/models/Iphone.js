@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 /*
- * Phone model for working with MongoDB.
+ * Phone models for working with MongoDB.
  * Defines the phone data structure using Data stored in the 'Iphone' collection.
  */
 

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 /*
-  * Order model for working with MongoDB.
+  * Order models for working with MongoDB.
   * Defines the Order data structure using Data stored in the 'Order' collection.
 */
 

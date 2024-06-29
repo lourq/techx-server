@@ -1,12 +1,10 @@
 import crypto from "crypto";
 import fs from "fs/promises";
-import { fileURLToPath } from "url";
 import path from "path";
+import __dirname from "../app/utils/dirnameUtil.js"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 let _config_token;
-const _token_path = path.join(__dirname, "../ServerData/token_key.json");
+const _token_path = path.join(__dirname, "../../serverdata/token_key.json");
 
 try 
 {

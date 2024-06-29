@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 /*
-  * Console model for working with MongoDB.
-  * Defines the console data structure using Data stored in the 'Console' collection.
+  * AppleWatch models for working with MongoDB.
+  * Defines the AppleWatch data structure using Data stored in the 'AppleWatch' collection.
 */
 
-const ConsoleSchema = new mongoose.Schema(
+const AppleWatchSchema = new mongoose.Schema(
 {
   _id: mongoose.Schema.Types.ObjectId,
   category: String,
@@ -15,16 +15,18 @@ const ConsoleSchema = new mongoose.Schema(
   descont_price: Number,
   color: [String],
   memory: String,
+  displaySize: String,
   description: String,
   os: String,
   processor: String,
+  battery: String,
   RAM: String,
   CPU: String,
   GPU: String,
   images: [String],
   incarousel: Boolean
-}, { collection:  'Console' })
+}, { collection:  'Watch' })
 
-const ConsoleModel = mongoose.model('console', ConsoleSchema);
+const AppleWatchModel = mongoose.model('applewatchs', AppleWatchSchema);
 
-export { ConsoleModel };
+export {AppleWatchModel};

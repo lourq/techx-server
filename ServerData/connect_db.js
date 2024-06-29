@@ -1,1 +1,2 @@
-export const _techx_data_connection_string = "mongodb+srv://admin:HkXTp9ukd6Gxh2oK@cluster0.xs8obgq.mongodb.net/TechX-Data?retryWrites=true&w=majority";
+// export const _techx_data_connection_string = "mongodb+srv://admin:HkXTp9ukd6Gxh2oK@cluster0.xs8obgq.mongodb.net/TechX-Data?retryWrites=true&w=majority";
+export const _techx_data_connection_string = "mongodb://127.0.0.1:27017/TechX-Data?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.10";
