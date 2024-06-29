@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
-import { _techx_data_connection_string } from "./serverdata/connect_db.js";
 import __dirname from "./app/utils/dirnameUtil.js";
 
 // Middlewares
@@ -41,6 +40,8 @@ import apiActivityRoutes from "./app/routes/api/activityRoutes.js";
 // the TechX Store, and the Database.
 
 dotenv.config();
+dotenv.config({ path: ".env.local" });
+
 const app = express();
 
 // Middlewares
@@ -65,18 +66,19 @@ app.use("/api/product", apiProductRoutes);
 app.use("/api/order", apiOrderRoutes);
 app.use("/api/activity", apiActivityRoutes);
 
-const DB_URL = _techx_data_connection_string; // process.env.MONGODB_URI;
-const PORT = 3000; // process.env.PORT;
+// Environment Variables
+const DB_URL = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 3000;
+const host = process.env.HOST || "localhost"
+const protocol = process.env.PROTOCOL || "http"
 
 const start = async () => {
   try {
     await mongoose.connect(DB_URL);
 
-    console.log(`🔌 Connect is [${mongoose.connection.readyState}]`);
-
-    const host = process.env.HOST || "localhost";
-    const protocol = process.env.PROTOCOL || "http";
     const full_URL = `${protocol}://${host}:${PORT}`;
+
+    console.log(`🔌 Connect is [${mongoose.connection.readyState}]`);
 
     app.listen(PORT, () => {
       console.log(`🍕 Server listening on port ${PORT} at ${full_URL}`);
