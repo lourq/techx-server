@@ -5,8 +5,8 @@ export const corsMiddleware = (req, res, next) => {
     "http://localhost:3000",
   ];
   const allowedIPs = [
-    '76.76.21.98',
-    '76.76.21.22'
+    '76.76.21.168',
+    '76.76.21.98'
   ];
   const origin = req.headers.origin;
   const clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
