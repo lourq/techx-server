@@ -2,7 +2,7 @@
 export const corsMiddleware = (req, res, next) => {
   const allowedOrigins = [
     "https://next-techx.vercel.app",
-    "http://localhost:3001",
+    "http://localhost:3000",
   ];
   const origin = req.headers.origin;
 
